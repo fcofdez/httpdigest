@@ -23,7 +23,6 @@ func GetAuthorization(username, password string, resp *http.Response) *Authoriza
 	opts := make(map[string]string)
 
 	for _, part := range parts {
-		fmt.Println("Part: ", part)
 		vals := strings.SplitN(part, "=", 2)
 		key := vals[0]
 		val := strings.Trim(vals[1], "\",")
@@ -42,7 +41,6 @@ func SetDigestAuth(r *http.Request, username, password string, resp *http.Respon
 	auth := GetAuthorization(username, password, resp)
 	auth_str := GetAuthString(auth, r.URL, r.Method, nc)
 	r.Header.Add("Authorization", auth_str)
-	fmt.Println(r.Header)
 }
 
 func GetAuthString(auth *Authorization, url *url.URL, method string, nc int) string {
